@@ -4,6 +4,10 @@ Created on Sun Jul 30 16:41:31 2023
 
 @author: SergeyHSE
 """
+###################################
+#                 1               #
+###################################
+
 """
 Let's load the load_wine data from sklearn.datasets
 """
@@ -62,13 +66,20 @@ plt.xlabel('Importance Score')
 plt.ylabel('Feature Name')
 plt.show()
 
-#2
+"""
+Now we are scaling the features using the Standard Scale r class with default hyperparameters.
+"""
+
 scaler = StandardScaler()
 scaler.fit(X_train)
 X_train_scaler = scaler.transform(X_train)
 
 rfr_sc = RandomForestRegressor(n_estimators=100, random_state=0)
 rfr_sc.fit(X_train_scaler, y_train)
+
+"""
+Let's evaluate the importance of the signs again and plot a graph to see the name of the two most important signs.
+"""
 
 feature_imp_sc = pd.DataFrame({'importances' : rfr_sc.feature_importances_,
                                'name' : data.feature_names})
@@ -82,7 +93,12 @@ plt.xlabel('Importance Score')
 plt.ylabel('Feature Name')
 plt.show()
 
-#3
+######################################
+#                 2                  #
+######################################
+"""
+In this part we are gonna work with anothe dataset 'data.csv'
+"""
 
 import numpy as np
 import pandas as pd
@@ -93,7 +109,12 @@ import seaborn as sns
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error
 
-path = r"C:\Users\User\Documents\pyton-projects\spider\Машинное обучение\Random_Forest\data.csv"
+"""
+Put matrix 'values-features' in X and target in y/
+After that we are gonna put the first 6000 objects in the train part and other objects in the test part 
+"""
+
+path = r"Your path\data.csv"
 path = path.replace('\\', '/')
 data = pd.read_csv(path, header=None, delimiter=',')
 X, y = data.iloc[:, :100], data.iloc[:, 100]
