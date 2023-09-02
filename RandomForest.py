@@ -175,6 +175,10 @@ MSE = mean_squared_error(y_test, y_predict)
 answer = MSE/1000
 print('Answer: ', answer)
 
+"""
+Let's do the same using RandomForest with different hyperparameter n_estimators.
+"""
+
 rfr = RandomForestRegressor(n_estimators=1, random_state=0)
 rfr.fit(x_train, y_train)
 y_pred_rfr = rfr.predict(x_test)
@@ -195,6 +199,10 @@ y_pred_rfr = rfr.predict(x_test)
 MSE = mean_squared_error(y_test, y_pred_rfr)
 answer = MSE/1000
 print('Answer: ', answer)
+
+"""
+Now we wanna calculate 'Out-of-bag error' in RandomForestRegressor.
+"""
 
 rfr_oob = RandomForestRegressor(n_estimators=100, oob_score=True, random_state=0)
 rfr_oob.fit(x_train, y_train)
