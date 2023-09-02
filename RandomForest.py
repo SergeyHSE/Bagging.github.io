@@ -211,3 +211,42 @@ rfr_oob.fit(x_train, y_train)
 rfr_oob.oob_score_
 oob_error = 1 - rfr_oob.oob_score_
 oob_error
+
+"""
+We can also initialize lists to store MSE values and labels and then visualize MSE for different estimators
+"""
+
+mse_values = []
+labels = []
+
+# Bagging with different estimators
+bag_estimators = [1, 5, 100]
+for n_estimators in bag_estimators:
+    bag = Bagging(n_estimators=n_estimators)
+    bag.fit(x_train, y_train)
+    y_predict = bag.predict(x_test)
+    MSE = mean_squared_error(y_test, y_predict)
+    answer = MSE / 1000
+    mse_values.append(answer)
+    labels.append(f'Bagging ({n_estimators} estimators)')
+
+# Random Forest with different estimators
+rf_estimators = [1, 5, 100]
+for n_estimators in rf_estimators:
+    rfr = RandomForestRegressor(n_estimators=n_estimators, random_state=0)
+    rfr.fit(x_train, y_train)
+    y_pred_rfr = rfr.predict(x_test)
+    MSE = mean_squared_error(y_test, y_pred_rfr)
+    answer = MSE / 1000
+    mse_values.append(answer)
+    labels.append(f'Random Forest ({n_estimators} estimators)')
+
+# Create a bar chart
+plt.figure(figsize=(10, 6), dpi=150)
+plt.bar(labels, mse_values, color=['blue', 'orange', 'green', 'red', 'purple', 'brown'])
+plt.xlabel('Models')
+plt.ylabel('Mean Squared Error (MSE) / 1000')
+plt.title('Comparison of MSE for Different Models')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
