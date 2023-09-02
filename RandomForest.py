@@ -125,6 +125,10 @@ x_test = np.array(x_test)
 y_train = np.array(y_train)
 y_test = np.array(y_test)
 
+"""
+Let's realize the Bagging class
+"""
+
 class Bagging():
     def __init__(self, n_estimators=10):
         self.n_estimators = n_estimators
@@ -143,7 +147,13 @@ class Bagging():
             res += i.predict(x_test)
         y_pred = res/self.n_estimators
         return y_pred
-   
+
+"""
+Let's train bagging on different indicators dessision tree algorithm.
+And every tims we will evaluate the quality according to the MSE metric on the test part dividing the answer
+by 1000 and rounding it up to the whole part.
+"""
+
 bag = Bagging(n_estimators=1)          
 bag.fit(x_train, y_train)
 y_predict = bag.predict(x_test)
