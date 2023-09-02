@@ -4,6 +4,9 @@ Created on Sun Jul 30 16:41:31 2023
 
 @author: SergeyHSE
 """
+"""
+Let's load the load_wine data from sklearn.datasets
+"""
 
 import numpy as np
 import pandas as pd
@@ -11,6 +14,10 @@ from sklearn.model_selection import train_test_split
 
 from sklearn.datasets import load_wine
 data = load_wine()
+
+"""
+We will exclude Class 2 objects from the training part. 
+"""
 
 X, y = data['data'], data['target']
 
@@ -25,15 +32,24 @@ y = np.squeeze(y_cut, axis=-1)
 X = pd.DataFrame(data=X_cut, columns=data.feature_names)
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0) 
 
+"""
+We will train a random forest by setting only the hyperparameters n_estimators=100 and random_state=0. 
+"""
+
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
 import seaborn as sns
 from sklearn.tree import DecisionTreeRegressor
 import matplotlib.pyplot as plt
-#1
+
 rfr = RandomForestRegressor(n_estimators=100, random_state=0)
 rfr.fit(X_train, y_train)
 rfr.predict(X_test)
+
+"""
+Let's evaluate the importance of the signs.
+We will make diagram and indicate the name of the two most important signs.
+"""
 
 feature_imp = pd.DataFrame({'importances' : rfr.feature_importances_,
                             'name' : data.feature_names})
