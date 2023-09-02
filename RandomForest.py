@@ -93,6 +93,8 @@ plt.xlabel('Importance Score')
 plt.ylabel('Feature Name')
 plt.show()
 
+# We have got the same picture/
+
 ######################################
 #                 2                  #
 ######################################
